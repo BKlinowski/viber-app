@@ -1,0 +1,78 @@
+<%- include("../includes/head.ejs") %>
+    </head>
+
+    <body>
+        <%- include("../includes/nav.ejs") %>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Wiadomość od</th>
+                        <th scope="col">Treść wiadomości</th>
+                        <th scope="col">Typ wiadomości</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for( let i=0; i < rows.length; i++ ) { %>
+                        <tr>
+                            <% if (rows[i].Type==1 || rows[i].Type==2 || rows[i].Type==9 || rows[i].Type==11 ||
+                                rows[i].Type==72) { %>
+
+
+                                <th scope="row">
+                                    <%= i+1 %>
+                                </th>
+                                <td>
+                                    <p>
+                                        <%= rows[i].Contact.name %>
+                                    </p>
+                                    <p>
+                                        <%= rows[i].Contact.number %>
+                                    </p>
+                                </td>
+                                <% if (rows[i].Type==1) { %>
+                                    <td>
+                                        <%= rows[i].Body %>
+                                    </td>
+                                    <% } else if(rows[i].Type==9) { %>
+                                        <td>
+                                            <img src="<%= rows[i].Body %>" alt="GIF">
+                                        </td>
+                                        <% } else if(rows[i].Type==2) {%>
+                                            <td>
+                                                <img src="img/<%= rows[i].ThumbnailPath %>" alt="">
+                                            </td>
+                                            <% } else { %>
+                                                <td>
+                                                    </td>
+                                            <% } %>
+                                                    <% if (rows[i].Type==1) { %>
+                                                <td>
+                                                    <p>Wiadomość tekstowa</p>
+                                                </td>
+                                                <% } else if(rows[i].Type==9) { %>
+                                                    <td>
+                                                        <p>Gif</p>
+                                                    </td>
+                                                    <% } else if(rows[i].Type==2) {%>
+                                                        <td>
+                                                            <p>Obrazek</p>
+                                                        </td>
+                                                        <% } else if(rows[i].Type==11) { %>
+                                                            <td>
+                                                                <p>Inny plik</p>
+                                                            </td>
+                                                            <% } else if(rows[i].Type==72) { %>
+                                                                <td>
+                                                                    <p>Wiadomość usunięta</p>
+                                                                </td>
+                                                                <% } %>
+                                                                    <% } %>
+                        </tr>
+                        
+                            <% } %>
+                </tbody>
+            </table>
+    </body>
+
+    </html>

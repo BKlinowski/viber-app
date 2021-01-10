@@ -1,0 +1,33 @@
+<%- include("../includes/head.ejs") %>
+</head>
+
+<body>
+    <%- include("../includes/nav.ejs") %>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Połączenie od</th>
+                <th scope="col">Czas trwania [sekundy]</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for( let i=0; i < rows.length; i++ ) { %>
+                <tr>
+                    <th scope="row">
+                        <%= i+1 %>
+                    </th>
+                    <td>
+                        <p> <%= rows[i].Contact.name %></p>
+                        <p> <%= rows[i].Contact.number %></p>
+                    </td>
+                    <td>
+                        <%= rows[i].Duration %>
+                    </td>
+                </tr>
+                <% } %>
+        </tbody>
+    </table>
+</body>
+
+</html>

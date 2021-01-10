@@ -1,0 +1,48 @@
+<%- include("../includes/head.ejs") %>
+    </head>
+    <body>
+        <%- include("../includes/nav.ejs") %>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nazwa</th>
+                        <th scope="col">Numer</th>
+                        <th scope="col">MID</th>
+                        <th scope="col">Właściciel aplikacji</th>
+                        <th scope="col">Typ kontaktu</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for( let i=0; i < rows.length; i++ ) { %>
+                        <tr>
+                            <th scope="row">
+                                <%= i+1 %>
+                            </th>
+                            <td>
+                                <%= rows[i].Name %>
+                            </td>
+                            <td>
+                                <%= rows[i].Number %>
+                            </td>
+                            <td>
+                                <%= rows[i].MID %>
+                            </td>
+                            <td>
+                                <%= rows[i].ClientName %>
+                            </td>
+                            <% if (rows[i].ContactFlags==1) { %>
+                                <td>Właściciel</td>
+                                <% } else if(rows[i].ContactFlags==17) {%>
+                                    <td>Osoba mająca viber'a</td>
+                                    <% } else if (rows[i].ContactFlags==16) {%>
+                                        <td>Osoba nie mająca viber'a</td>
+                                        <% } %>
+                                            
+                                            <% } %>
+                        </tr>
+                </tbody>
+            </table>
+    </body>
+
+    </html>
