@@ -21,7 +21,7 @@ export const getMessages = (req, res, next) => {
             }
             contacts = data;
             db.all(
-              `SELECT EventID, ContactID FROM Events  ORDER BY EventID ASC`,
+              `SELECT EventID, ContactID, TimeStamp FROM Events  ORDER BY EventID ASC`,
               (err, data) => {
                 if (err) {
                   console.error(err.message);
@@ -36,8 +36,10 @@ export const getMessages = (req, res, next) => {
                       contacts.find((el) => el.ContactID == events[i].ContactID)
                     )
                   );
+                  contactsArr[i].timestamp = events[i].TimeStamp;
                   contactsArr[i].eventID = events[i].EventID;
                 }
+                let count = 1;
                 for (let i = 0; i < messages.length; i++) {
                   let imgPath = null;
                   if (messages[i]['ThumbnailPath']) {
@@ -45,12 +47,24 @@ export const getMessages = (req, res, next) => {
                     imgPath = imgPath[imgPath.length - 1];
                     messages[i]['ThumbnailPath'] = imgPath;
                   }
-
+                  if (
+                    messages[i].Type == 1 ||
+                    messages[i].Type == 2 ||
+                    messages[i].Type == 9 ||
+                    messages[i].Type == 11 ||
+                    messages[i].Type == 72
+                  ) {
+                    messages[i].count = count;
+                    count++;
+                  }
                   messages[i]['Contact'] = Object.assign(
                     {},
                     contactsArr.find((el) => {
                       return messages[i].EventID == el.eventID;
                     })
+                  );
+                  messages[i].timestamp = new Date(
+                    messages[i].Contact.timestamp
                   );
                   messages[i]['Contact'] = {
                     name: messages[i]['Contact'].Name
@@ -91,7 +105,7 @@ export const getCalls = (req, res, next) => {
             }
             contacts = data;
             db.all(
-              `SELECT EventID, ContactID FROM Events  ORDER BY EventID ASC`,
+              `SELECT EventID, ContactID, TimeStamp FROM Events  ORDER BY EventID ASC`,
               (err, data) => {
                 if (err) {
                   console.error(err.message);

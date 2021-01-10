@@ -10,17 +10,19 @@
                         <th scope="col">Wiadomość od</th>
                         <th scope="col">Treść wiadomości</th>
                         <th scope="col">Typ wiadomości</th>
+                        <th scope="col">Data</th>
                     </tr>
                 </thead>
                 <tbody>
                     <% for( let i=0; i < rows.length; i++ ) { %>
-                        <tr>
-                            <% if (rows[i].Type==1 || rows[i].Type==2 || rows[i].Type==9 || rows[i].Type==11 ||
+                        <% if (rows[i].Type==1 || rows[i].Type==2 || rows[i].Type==9 || rows[i].Type==11 ||
                                 rows[i].Type==72) { %>
+                        <tr>
+                            
 
 
                                 <th scope="row">
-                                    <%= i+1 %>
+                                    <%= rows[i].count %>
                                 </th>
                                 <td>
                                     <p>
@@ -67,10 +69,14 @@
                                                                     <p>Wiadomość usunięta</p>
                                                                 </td>
                                                                 <% } %>
-                                                                    <% } %>
+                                                                <td>
+                                                                    <%= rows[i].timestamp %>
+                                                                    </td>
+                                                                    
                         </tr>
-                        
-                            <% } %>
+                        <% } %>
+                        <% } %>
+                            
                 </tbody>
             </table>
     </body>
